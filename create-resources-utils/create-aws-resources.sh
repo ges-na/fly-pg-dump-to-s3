@@ -16,8 +16,8 @@ echo "Creating bucket ${bucket_name}"
 aws s3api create-bucket \
     --bucket "${bucket_name}" \
     --region "${region}" \
-    --create-bucket-configuration LocationConstraint="${region}" \
-    --no-cli-pager
+    # --create-bucket-configuration LocationConstraint="${region}" \
+    # --no-cli-pager
 
 
 echo "Enabling bucket versioning"
@@ -89,5 +89,5 @@ aws_secret_access_key=$(echo "${create_access_key_response}" | jq -r '.AccessKey
 echo "AWS_ACCESS_KEY_ID=${aws_access_key_id}"
 echo "AWS_SECRET_ACCESS_KEY=${aws_secret_access_key}"
 echo "BACKUP_CONFIGURATION_NAMES=STAGING,PRODUCTION"
-echo "STAGING_S3_DESTINATON=s3://${bucket_name}/${name}-db-backup-staging.tar.gz"
-echo "PRODUCTION_S3_DESTINATON=s3://${bucket_name}/${name}-db-backup-production.tar.gz"
+echo "STAGING_S3_DESTINATION=s3://${bucket_name}/${name}-pbp_database_backup.sql"
+echo "PRODUCTION_S3_DESTINATION=s3://${bucket_name}/${name}-pbp_database_backup.sql"

@@ -15,4 +15,6 @@ fly apps create --name "${app_name}" --org "${fly_organization_name}"
 echo "Creating volume for ${app_name}"
 fly -a "${app_name}" volumes create temp_data --no-encryption --size "${VOLUME_SIZE_IN_GB}"
 
+# fly -a ${app_name} secrets import < .env
+
 echo "App name: ${app_name}"

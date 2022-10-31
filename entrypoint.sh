@@ -10,7 +10,7 @@ backup_database () {
   database_url_var_name="${prefix}DATABASE_URL"
   database_url=${!database_url_var_name}
 
-  s3_destination_var_name="${prefix}S3_DESTINATON"
+  s3_destination_var_name="${prefix}S3_DESTINATION"
   s3_destination=${!s3_destination_var_name}
 
   if [[ -z $database_url || -z $s3_destination ]]; then
@@ -40,9 +40,11 @@ if [[ -n $FLY_APP_NAME && -n $FLY_API_TOKEN ]]; then
     fly volumes list -a "$FLY_APP_NAME" --json \
     | jq -r 'map(select(.AttachedAllocation != null )) | first.id'
   )
- 
-  echo "Deleting volume $volume_id"
-  fly volumes delete "$volume_id" --yes
+
+  if [[ -n $volume_id ]]; then
+    echo "Deleting volume $volume_id"
+    fly volumes delete "$volume_id" --yes
+  fi
 
   echo "Done! Sleeping..."
   sleep infinity
